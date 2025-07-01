@@ -17,17 +17,15 @@ router.get('/', (req, res) => {
     res.json(filter)
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/', (req, res) => {
     const id = parseInt(req.params.id)
-    const post = posts.find(post=> post.id === id)
+    const post = posts.findIndex( post => post.titolo.toLowerCase().includes(req.query.titolo.toLowerCase()))
+  
+
+    posts.splice(post, 1);
     console.log(posts)
-
-    if(!post){
-        res.status(204);
-        return res.json()
-    }
-
-    posts.splice(posts.indexOf(post), 1);
+    res.status(204)
+    res.end()
 })
 
 
