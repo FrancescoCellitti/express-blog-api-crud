@@ -1,8 +1,4 @@
-const express = require('express')
-const router = express.Router()
 const port = process.env.PORT
-
-
 const posts = [
     {
         titolo: "Ciambellone soffice",
@@ -35,32 +31,5 @@ const posts = [
         tags: ["dolci", "lombardia", "tradizione"]
     }
 ]
-router.get('/api/posts', (req, res) => {
-    res.json(posts)
-})
 
-router.get('/', (req, res) => {
-    res.json(posts)
-})
-
-router.post('/', (req, res) => {
-    res.send('add a new post')
-})
-
-router.put('/:id', (req, res) => {
-    res.send('modifica del post ' + req.params.id)
-})
-
-router.patch('/:id', (req, res) => {
-    res.send('modifica singola del post ' + req.params.id)
-})
-
-router.delete('/:id', (req, res) => {
-    res.send('cancellazione del post ' + req.params.id)
-})
-
-router.get('/:id', (req, res) => {
-    res.json(posts[parseInt(req.params.id)])
-})
-
-module.exports = router
+module.exports = posts
