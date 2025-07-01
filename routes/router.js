@@ -3,12 +3,18 @@ const router = express.Router()
 const port = process.env.PORT
 const posts = require('../data/posts.js')
 
-router.get('/', (req, res) => {
+/* router.get('/', (req, res) => {
     res.json(posts)
-})
+}) */
 
-router.get('/:id', (req, res) => {
-    res.json(posts[parseInt(req.params.id)])
+router.get('/', (req, res) => {
+    let filter = posts;
+    if(req.query.titolo){
+        filter = posts.filter(
+            post => post.titolo.toLowerCase().includes(req.query.titolo)
+        )
+    }
+    res.json(filter)
 })
 
 router.delete('/:id', (req, res) => {
