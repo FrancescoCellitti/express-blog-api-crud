@@ -44,7 +44,7 @@ function store(req, res) {
    /*  const newPost = {
         "titolo": "'Focaccia alle olive'",
         "contenuto": "'Una focaccia soffice e saporita arricchita con olive verdi.'",
-        "immagine": "http://localhost:3030/",
+        "immagine": "http://localhost:3030/images/focaccia_olive.jpeg",
         "tags": "[ 'pane', 'focaccia', 'aperitivo' ]"
     } */
     posts.push(req.body)
@@ -55,4 +55,27 @@ function store(req, res) {
     res.json(posts);
 }
 
-module.exports = { filter, deleted, store }
+function modify(req, res){
+        const id = parseInt(req.params.id)
+
+        const post = posts[id]
+
+    if(!post){
+        res.status(404);
+
+        return res.json({
+            error: "Not Found",
+            message: "Post non trovato"
+        })
+    }
+    post.titolo = req.body.titolo;
+    post.contenuto = req.body.contenuto;
+    post.immagine = req.body.immagine;
+    post.tags = req.body.tags;
+
+    res.json(post)
+    console.log(posts)
+    
+}
+
+module.exports = { filter, deleted, store, modify }
