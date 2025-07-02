@@ -39,4 +39,20 @@ function deleted(req, res) {
     res.end()
 }
 
-module.exports = { filter, deleted }
+
+function store(req, res) {
+   /*  const newPost = {
+        "titolo": "'Focaccia alle olive'",
+        "contenuto": "'Una focaccia soffice e saporita arricchita con olive verdi.'",
+        "immagine": "http://localhost:3030/",
+        "tags": "[ 'pane', 'focaccia', 'aperitivo' ]"
+    } */
+    posts.push(req.body)
+    console.log(req.body)
+
+
+    res.status(201);
+    res.json(posts);
+}
+
+module.exports = { filter, deleted, store }
