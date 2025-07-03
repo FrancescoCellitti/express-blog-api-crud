@@ -18,12 +18,13 @@ app.use('/posts', postsRouter)
 
 
 
-app.listen(port, () => {
-    console.log(`app listening on port http://localhost:${port}`);
-
-})
-
 
 app.use(error)
 
 app.use(notFound)
+
+
+app.listen(port, () => {
+    console.log(`app listening on port http://localhost:${port}`);
+
+})
