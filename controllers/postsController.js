@@ -22,12 +22,12 @@ function index(req, res) {
 }
 
 function store(req, res) {
-   /*  const newPost = {
-        "titolo": "'Focaccia alle olive'",
-        "contenuto": "'Una focaccia soffice e saporita arricchita con olive verdi.'",
-        "immagine": "http://localhost:3030/images/focaccia_olive.jpeg",
-        "tags": "[ 'pane', 'focaccia', 'aperitivo' ]"
-    } */
+    /*  const newPost = {
+         "titolo": "'Focaccia alle olive'",
+         "contenuto": "'Una focaccia soffice e saporita arricchita con olive verdi.'",
+         "immagine": "http://localhost:3030/images/focaccia_olive.jpeg",
+         "tags": "[ 'pane', 'focaccia', 'aperitivo' ]"
+     } */
     posts.push(req.body)
     console.log(req.body)
 
@@ -36,12 +36,12 @@ function store(req, res) {
     res.json(posts);
 }
 
-function modify(req, res){
-        const id = parseInt(req.params.id)
+function modify(req, res) {
+    const id = parseInt(req.params.id)
 
-        const post = posts[id]
+    const post = posts[id]
 
-    if(!post){
+    if (!post) {
         res.status(404);
 
         return res.json({
@@ -56,7 +56,7 @@ function modify(req, res){
 
     res.json(post)
     console.log(posts)
-    
+
 }
 function deleted(req, res) {
     const id = parseInt(req.params.id)
@@ -66,7 +66,7 @@ function deleted(req, res) {
         return res.json({
             status: 404,
             error: "Not Found",
-            message: "Pizza non trovata"
+            message: "Post non trovato"
         })
     }
 
@@ -76,5 +76,21 @@ function deleted(req, res) {
     res.end()
 }
 
+function error(err, req, res, next){
+    res.status(500)
+    res.json({
+        error: err.message,
+    });
+};
 
-module.exports = { index, deleted, store, modify }
+function notFound(req, res, next) {
+    res.status(404)
+    res.json({
+        error: "Not Found",
+        message: "Pagina non trovata"
+    });
+};
+
+
+
+module.exports = { index, deleted, store, modify, notFound, error }
