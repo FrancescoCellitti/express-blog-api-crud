@@ -59,9 +59,8 @@ function modify(req, res) {
 
 }
 function deleted(req, res) {
-    const id = parseInt(req.params.id)
     const post = posts.findIndex(post => post.titolo.toLowerCase().includes(req.query.titolo.toLowerCase()))
-    if (post) {
+    if (post === -1) {
         res.status(404);
         return res.json({
             status: 404,
@@ -74,9 +73,12 @@ function deleted(req, res) {
     console.log(posts)
     res.status(204)
     res.end()
+
+
+
 }
 
-function error(err, req, res, next){
+function error(err, req, res, next) {
     res.status(500)
     res.json({
         error: err.message,
