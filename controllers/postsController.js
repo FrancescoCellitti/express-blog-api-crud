@@ -3,7 +3,7 @@ const posts = require('../data/posts')
 
 
 
-function filter(req, res) {
+function index(req, res) {
     let filter = posts;
     if (req.query.tags) {
         filter = posts.filter(
@@ -20,25 +20,6 @@ function filter(req, res) {
     }
     res.json(filter)
 }
-
-function deleted(req, res) {
-    const id = parseInt(req.params.id)
-    const post = posts.findIndex(post => post.titolo.toLowerCase().includes(req.query.titolo.toLowerCase()))
-    if (post) {
-        res.status(404);
-        return res.json({
-            status: 404,
-            error: "Not Found",
-            message: "Pizza non trovata"
-        })
-    }
-
-    posts.splice(post, 1);
-    console.log(posts)
-    res.status(204)
-    res.end()
-}
-
 
 function store(req, res) {
    /*  const newPost = {
@@ -77,5 +58,23 @@ function modify(req, res){
     console.log(posts)
     
 }
+function deleted(req, res) {
+    const id = parseInt(req.params.id)
+    const post = posts.findIndex(post => post.titolo.toLowerCase().includes(req.query.titolo.toLowerCase()))
+    if (post) {
+        res.status(404);
+        return res.json({
+            status: 404,
+            error: "Not Found",
+            message: "Pizza non trovata"
+        })
+    }
 
-module.exports = { filter, deleted, store, modify }
+    posts.splice(post, 1);
+    console.log(posts)
+    res.status(204)
+    res.end()
+}
+
+
+module.exports = { index, deleted, store, modify }
